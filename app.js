@@ -208,7 +208,10 @@ function refresh(resetPage = true) {
 }
 
 function bindEvents() {
-  refs.searchBtn.addEventListener("click", () => refresh(true));
+  refs.searchBtn.addEventListener("click", () => {
+    refresh(true);
+    refs.queryInput.value = "";
+  });
 
   refs.resetBtn.addEventListener("click", () => {
     refs.queryInput.value = "";
