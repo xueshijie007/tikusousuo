@@ -7,8 +7,6 @@
 
 const refs = {
   queryInput: document.getElementById("queryInput"),
-  subjectSelect: document.getElementById("subjectSelect"),
-  qtypeSelect: document.getElementById("qtypeSelect"),
   pageSizeSelect: document.getElementById("pageSizeSelect"),
   searchBtn: document.getElementById("searchBtn"),
   resetBtn: document.getElementById("resetBtn"),
@@ -96,17 +94,12 @@ function highlightText(text, tokens) {
 
 function applyFilters(resetPage = true) {
   const query = normalize(refs.queryInput.value);
-  const subject = refs.subjectSelect.value;
-  const qtype = refs.qtypeSelect.value;
   state.pageSize = Number(refs.pageSizeSelect.value) || 20;
 
   const tokens = tokenize(query);
 
   const rows = [];
   for (const question of state.allQuestions) {
-    if (subject !== "全部" && question.subject !== subject) continue;
-    if (qtype !== "全部" && question.qtype !== qtype) continue;
-
     const score = scoreQuestion(question, query, tokens);
     if (query && score < 0) continue;
 
@@ -215,8 +208,6 @@ function bindEvents() {
 
   refs.resetBtn.addEventListener("click", () => {
     refs.queryInput.value = "";
-    refs.subjectSelect.value = "全部";
-    refs.qtypeSelect.value = "全部";
     refs.pageSizeSelect.value = "20";
     refresh(true);
   });
@@ -228,8 +219,6 @@ function bindEvents() {
     }
   });
 
-  refs.subjectSelect.addEventListener("change", () => refresh(true));
-  refs.qtypeSelect.addEventListener("change", () => refresh(true));
   refs.pageSizeSelect.addEventListener("change", () => refresh(true));
 
   refs.prevBtn.addEventListener("click", () => {
