@@ -1,4 +1,4 @@
-﻿const state = {
+﻿﻿const state = {
   allQuestions: [],
   filtered: [],
   page: 1,
